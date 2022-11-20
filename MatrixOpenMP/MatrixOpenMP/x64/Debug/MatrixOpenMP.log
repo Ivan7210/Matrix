@@ -1,0 +1,3 @@
+﻿  MatrixOpenMP.cpp
+C:\Users\IvanA\OneDrive\Desktop\Algorithm\VisualStudio\MatrixOpenMP\MatrixOpenMP\MatrixOpenMP.cpp(19,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  MatrixOpenMP.vcxproj -> C:\Users\IvanA\OneDrive\Desktop\Algorithm\VisualStudio\MatrixOpenMP\x64\Debug\MatrixOpenMP.exe
