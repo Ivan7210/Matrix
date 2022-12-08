@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <cstdlib>
 #include <omp.h>
+#include <fstream>
+
 
 using namespace std;
 
@@ -15,19 +17,19 @@ void randomiseMatrix(int** matrix, int n, int m) {
 }
 
 int main(int argc, char** argv) {
-    
     srand(time(NULL));
-    int n1 = 1000;
-    int m1 = 500;
-    int n2 = 500;
-    int m2 = 1200;
+
+    int n1 = 1500;
+    int m1 = 700;
+    int n2 = 700;
+    int m2 = 2000;
 
     //Матрица n1 x m1
     int** matrix1;
     //Матрица n2 x m2
     int** matrix2;
 
-    for (int t = 0; t < 3; t++) {
+    for (int t = 0; t < 1; t++) {
         matrix1 = (int**)malloc(sizeof(int*) * n1);
         for (int i = 0; i < n1; i++) {
             matrix1[i] = (int*)malloc(sizeof(int) * m1);
@@ -47,19 +49,25 @@ int main(int argc, char** argv) {
         }
 
         //Устанавливаем число потоков
-        int threadsNum = 2;
+        int threadsNum = 20;
         omp_set_num_threads(threadsNum);
         int i, j, k;
+        auto start = omp_get_wtime();
+
 #pragma omp parallel for shared(matrix1, matrix2, result) private(i, j, k)
         for (i = 0; i < n1; i++) {
             for (j = 0; j < m2; j++) {
                 result[i][j] = 0;
                 for (k = 0; k < m1; k++) {
                     result[i][j] += (matrix1[i][k] * matrix2[k][j]);
-                    //cout << result[i][j] << " ";
                 }
             }
         }
+
+
+        auto end = omp_get_wtime();;
+        cout << "Time: " << (end - start) << " second" << endl;
+
+        return 0;
     }
-    return 0;
 }
